@@ -1,0 +1,231 @@
+{
+  "data_mode": "historical",
+  "analysis_end": "2026-08-31",
+  "first_portfolio_date": "2016-07-31",
+  "source_manifest": {
+    "data_mode": "historical",
+    "retrieved_at": "2026-09-10T18:09:05.205219+00:00",
+    "universe": {
+      "ADBE": 796343,
+      "CRM": 1108524,
+      "NOW": 1373715,
+      "HUBS": 1404655,
+      "DDOG": 1561550,
+      "SNOW": 1640147,
+      "WDAY": 1327811,
+      "VEEV": 1393052,
+      "CRWD": 1535527,
+      "NET": 1477333,
+      "MDB": 1441816,
+      "ZS": 1713683
+    },
+    "sources": [
+      {
+        "name": "ADBE_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000796343.json",
+        "sha256": "75f3829c00b3e8c669b84dcefefe66bc6e0cefd25379b0f0528abd08064df62b",
+        "rows": 69
+      },
+      {
+        "name": "CRM_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001108524.json",
+        "sha256": "000745962bc36a66c6bfaddc7062cf124a17231958b76b4f7606dd4aec5e230c",
+        "rows": 69
+      },
+      {
+        "name": "NOW_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001373715.json",
+        "sha256": "1131b67e8d2d6cd6415cafa82c8874cb2139016e4c8d7e04b1728837a8bbec2c",
+        "rows": 56
+      },
+      {
+        "name": "HUBS_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001404655.json",
+        "sha256": "f259532687f784b291938882beaab403caf24b2abd0c2792ac0940e95a34353d",
+        "rows": 50
+      },
+      {
+        "name": "DDOG_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001561550.json",
+        "sha256": "d3c4561fd839e25b1cde245ff3ca1f821b2a70e70d34688c5ede40bbc0f600a2",
+        "rows": 28
+      },
+      {
+        "name": "SNOW_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001640147.json",
+        "sha256": "9d2289f4d9810ef19dfd4f5eef8c90b406db14947ca4b6fcb36dca6c41383144",
+        "rows": 24
+      },
+      {
+        "name": "WDAY_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001327811.json",
+        "sha256": "831819baad53b4b4f5b72b5d1f24144e90c5cd42ff9e6263eecdd0dff87c648d",
+        "rows": 58
+      },
+      {
+        "name": "VEEV_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001393052.json",
+        "sha256": "c2624d24b7f8e7939be966eb22c27d2d0b6f1b361bf51656bff51b88a4588804",
+        "rows": 54
+      },
+      {
+        "name": "CRWD_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001535527.json",
+        "sha256": "23ed2551c35b71990c3c5123ce67a49c6a68931f05e2b1b98e8007be4a2ba8b9",
+        "rows": 30
+      },
+      {
+        "name": "NET_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001477333.json",
+        "sha256": "04cc636210456fc5163996c546c38dd049e53b5f9ce59b8f824f1725b06afe11",
+        "rows": 28
+      },
+      {
+        "name": "MDB_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001441816.json",
+        "sha256": "8947052d6912d9ac6b35470f5e331ef6fe1f4b4cf782fab20822c9cb66738997",
+        "rows": 36
+      },
+      {
+        "name": "ZS_sec",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001713683.json",
+        "sha256": "06053c252007a7d76d154eb77a698c48c832f9b4d6ad121a33b41d14a27a1434",
+        "rows": 34
+      },
+      {
+        "name": "ADBE_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/ADBE?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "7ea64074ecf400a583fad46ef8997c6ad58e035bfa5d5d6354d416c3d338c8d1",
+        "rows": 140
+      },
+      {
+        "name": "CRM_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/CRM?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "eecf22b90753b139193e3adfa0ce050df7fe38697fc9046be4b556ccec67f214",
+        "rows": 140
+      },
+      {
+        "name": "NOW_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/NOW?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "79e3ccf61515eb726c26bc1b2c2a342b97229749840aa9ef93bd2bdab4559eb0",
+        "rows": 140
+      },
+      {
+        "name": "HUBS_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/HUBS?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "777b1a2a5f610990f395acca44d335dcb9beeee9fe87fb3ba74ca2b1295efb0e",
+        "rows": 140
+      },
+      {
+        "name": "DDOG_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/DDOG?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "35ffa8d691d14dffcc0c5a0bf5b926a4c7855e94752df6e5bb8d19cb04ebd7a6",
+        "rows": 84
+      },
+      {
+        "name": "SNOW_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/SNOW?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "517032e3cd3f81ad6d517bb02a1e0924acc1e75414cdee401ccf42974adb5f4a",
+        "rows": 72
+      },
+      {
+        "name": "WDAY_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/WDAY?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "3702e847f3b7326ae9eadf9e3b7bbd2a8c5252e0bda3e2a5a39d83f4822b18d5",
+        "rows": 140
+      },
+      {
+        "name": "VEEV_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/VEEV?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "300f0a5d8c68d44ceac648339d6506d40684c981c669de12661c983462827e18",
+        "rows": 140
+      },
+      {
+        "name": "CRWD_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/CRWD?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "fe36e61512e3c0bdb4f3e25e9c73d719a4b96b39b151ec5704831d51bbe90d2a",
+        "rows": 87
+      },
+      {
+        "name": "NET_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/NET?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "af770dae412843c7f42947124c93c2eaa8445e0309263b4689e3a32e62c501f1",
+        "rows": 84
+      },
+      {
+        "name": "MDB_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/MDB?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "c0644d01706545c1a05724067f35bbadd49c41ad97d5104041262d0ca6cd789e",
+        "rows": 107
+      },
+      {
+        "name": "ZS_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/ZS?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "4aad53962103ff30f80b2463ae8ee1cfa750c06aea2320c6057e726ecc48e92a",
+        "rows": 102
+      },
+      {
+        "name": "SPY_prices",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/SPY?period1=1420070400&period2=1788220800&interval=1mo",
+        "sha256": "d7a64b54d6466149a6feacfdc58c2d0bd049ac17e2bfd52621ad7d69553de8ca",
+        "rows": 140
+      },
+      {
+        "name": "Indeed software development postings via FRED",
+        "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=IHLIDXUSTPSOFTDEVE",
+        "sha256": "8b119c1b4562bbb5a91dcd1b7a7998f9d63cfe70363c8c7b22693326714c7448",
+        "rows": 2408
+      }
+    ],
+    "analysis_end": "2026-08-31",
+    "price_start": "2015-01-01",
+    "hiring_series": "IHLIDXUSTPSOFTDEVE",
+    "limitations": [
+      "Purposively selected surviving SaaS companies, not historical S&P 500 membership",
+      "Yahoo adjusted prices are latest-vintage, approximate dividend-adjusted total returns",
+      "Indeed software hiring is an occupation-wide index, not company-specific hiring",
+      "Indeed history is revised; 1-month lag does not reconstruct historical data vintages",
+      "SEC first-report quarters retained; Q4 annual-minus-9m derivations may mix accounting vintages",
+      "No analyst estimates, company job-posting history, stock-loan availability or delisting panel"
+    ],
+    "normalized_hashes": {
+      "prices.csv": "c134f6b9507fea7ecf122bb24819510405cd9327aa9779d5f3db5e47243a0347",
+      "hiring.csv": "4e295ef170f58c8649d7fdcb7fbb31bb5626cf01aeaf256349e458e50d543555",
+      "fundamentals.csv": "1641dab298fab721aca87e7a4595e437ef3dae4d5763537b45652339017487ef"
+    }
+  },
+  "factor_rows": 1190,
+  "real_tickers": [
+    "ADBE",
+    "CRM",
+    "CRWD",
+    "DDOG",
+    "HUBS",
+    "MDB",
+    "NET",
+    "NOW",
+    "SNOW",
+    "VEEV",
+    "WDAY",
+    "ZS"
+  ],
+  "quarterly_growth_observations": 536,
+  "hiring_observations": 2408,
+  "prediction_rows": 1284,
+  "notes": [
+    "No generated observations, generated proxy factors or generated fallback",
+    "All real-data outcomes retained regardless of direction",
+    "Chronological test is not a vintage-correct out-of-sample claim",
+    "Four fixed signals; no value factor because historical valuation inputs were not constructed",
+    "Ridge penalty fixed at 1 before evaluating outcomes; no tuning on test"
+  ],
+  "assumptions": {
+    "one_way_bps": 10,
+    "borrow_bps_annual": 100,
+    "zero_cash_rate": true,
+    "gross_long_short": 1.0,
+    "price_lag_months": 1,
+    "test_start": "2023-01-01",
+    "source_vintage": "2026-09-10T18:09:05.205219+00:00"
+  }
+}

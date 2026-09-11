@@ -1,136 +1,75 @@
-# Fama-French 5-Factor Model + Hiring Momentum
+# Real-Data SaaS Factor Research + Hiring Analysis
 
-**Author:** Jessica Yang | [github.com/jessieyang22](https://github.com/jessieyang22)  
-**Related repo:** [jessieyang22/hiring-momentum](https://github.com/jessieyang22/hiring-momentum)
+**Twelve actual companies. Yahoo adjusted prices. SEC-reported fundamentals. Indeed hiring observations. No generated data or fallback.**
 
----
+This repository connects three projects: a four-signal equity study, an aggregate-hiring forecasting study, and a monthly portfolio-accounting engine. Data runs through **August 2026**. The companion [hiring-momentum repository](https://github.com/jessieyang22/hiring-momentum) contains the same version of the shared implementation and emphasizes the hiring study.
 
-## Research Question
+> The previous FF5 + hiring-proxy result claims are withdrawn. That implementation generated a hiring factor and treated normalized hiring scores as mock returns. Its figures and notebook results have been replaced. Prior versions remain in Git history; they are not evidence of an empirical hiring premium.
 
-Does a proprietary **hiring momentum signal** — constructed from LinkedIn job posting velocity across SaaS companies — explain cross-sectional stock returns beyond the standard Fama-French 5-factor model?
+## Open the work
 
----
+| Project | Research and implementation |
+| --- | --- |
+| Equity factors | [Research report](reports/factor_research.md) · [PDF](reports/factor_research.pdf) · [Analysis code](real_research/analyze.py) |
+| Hiring and revenue forecasts | [Research report](reports/hiring_research.md) · [PDF](reports/hiring_research.pdf) · [Actual forecast scores](reports/forecast_scores.csv) |
+| Backtesting framework | [Engine guide](docs/ENGINE.md) · [Engine code](real_research/engine.py) · [Tests using observed data](tests/test_real_research.py) |
 
-## Methodology
+![Observed equity portfolio results](reports/equity_curves.png)
 
-### 1. Data
-- **Universe:** 181 S&P 500 stocks across all GICS sectors
-- **Sample:** 2018–2025 (monthly, 95 observations)
-- **Prices:** Yahoo Finance via `yfinance` (auto-adjusted monthly close)
-- **FF5 Factors:** Ken French Data Library (Mkt-RF, SMB, HML, RMW, CMA, RF)
+## What is actually being tested
 
-### 2. Hiring Momentum Factor (HM)
-Built from the [hiring-momentum](https://github.com/jessieyang22/hiring-momentum) project:
-- LinkedIn job posting data collected across 18 SaaS companies using Apify
-- 4-quarter rolling z-score normalization of QoQ job count growth
-- Long top hiring tercile, short bottom tercile
-- Quarterly signal forward-filled to monthly frequency
+**Equities:** ADBE, CRM, NOW, HUBS, DDOG, SNOW, WDAY, VEEV, CRWD, NET, MDB and ZS. Four fixed signals: 12-to-1-month price momentum, low volatility, SEC-reported operating margin and year-over-year revenue growth. Cross-sectional winsorization and standardization, equal composite weights, monthly tercile portfolios. No value signal is claimed because historical valuation inputs were not constructed.
 
-### 3. Fama-MacBeth Two-Pass Regression
-**Pass 1 — Rolling Time-Series Betas:**  
-For each stock *i*, rolling 36-month OLS:
+**Hiring:** Indeed's **U.S. software-development job-postings index**, distributed through FRED. It is an occupation-wide series, not firm-level job postings. The test asks whether that hiring backdrop improves SaaS revenue forecasts beyond reported growth, margin, price momentum and company indicators. A separate SPY/cash rule tests aggregate hiring-based market timing.
 
-$$r_{i,t} - r_f = \alpha_i + \sum_k \beta_{i,k} f_{k,t} + \epsilon_{i,t}$$
+**Framework:** Actual adjusted-price returns drive a self-financing cash-and-holdings ledger, monthly weight drift, transaction costs, borrowing costs and exposure/performance diagnostics. The same engine evaluates all portfolios.
 
-**Pass 2 — Monthly Cross-Sectional Regression:**  
-Each month *t*:
+## Results, without hiding the weak ones
 
-$$r_{i,t} - r_f = \gamma_{0,t} + \sum_k \gamma_{k,t} \hat{\beta}_{i,k} + \eta_{i,t}$$
+The chronological test is January 2023-August 2026. These are retrospective historical calculations after modeled costs, not a live track record.
 
-**Inference:** Newey-West corrected standard errors (4 lags) to account for serial correlation in the gamma series.
+| Portfolio | Annualized return | Sharpe, zero hurdle | Maximum drawdown |
+| --- | ---: | ---: | ---: |
+| Composite long/short | -6.38% | -0.34 | -31.21% |
+| Composite long-only | 23.07% | 0.74 | -40.17% |
+| Eligible SaaS equal-weight | 29.92% | 0.89 | -38.47% |
+| SPY buy-and-hold | 22.39% | 1.68 | -8.33% |
 
-### 4. Model Evaluation
-- t-statistics and p-values on each factor premium
-- GRS (1989) test: joint null that all portfolio alphas are zero
-- Cross-sectional R² comparison across all cross-sectional periods
+The long-only composite **underperforms the eligible-universe equal-weight comparison**. This run does not support claiming a composite stock-selection advantage.
 
----
+Across 165 scored company/quarter forecasts in the test window, baseline RMSE is 0.1057 versus 0.0851 with aggregate hiring features (revenue growth in decimal units). This is descriptive improvement in a small, revised-vintage sample. The common hiring input means 165 company rows are not 165 independent macro observations.
 
-## Key Results
-
-| Metric                     | FF5     | FF5 + HM |
-|---------------------------|---------|----------|
-| Avg Cross-Sectional R²    | 20.0%   | 22.0%    |
-| R² Improvement            | —       | +9.6%    |
-| Mean \|Alpha\| (monthly)  | 0.602%  | 0.603%   |
-| GRS F-statistic           | 4.257   | 4.223    |
-| GRS p-value               | 0.000   | 0.000    |
-
-**HM Factor Premium:**
-- Monthly mean: +0.28%
-- Newey-West t-statistic: 1.56
-- p-value: 0.124 (directionally positive, not yet significant at 5%)
-
-**Interpretation:** The hiring momentum factor has a positive and directionally significant risk premium consistent with the hypothesis that companies accelerating hiring lead revenue growth by 1–2 quarters. The 9.6% improvement in cross-sectional R² suggests meaningful incremental explanatory power. Statistical significance is limited by the 59-period sample; using the full Apify live dataset (and a broader cross-section of companies) is expected to improve inference.
-
----
-
-## Visualizations
-
-| Figure | Description |
-|--------|-------------|
-| `figures/factor_premia.png` | Fama-MacBeth factor premiums with Newey-West t-stats |
-| `figures/cs_r2_over_time.png` | Cross-sectional R² over time, FF5 vs FF5+HM |
-| `figures/factor_correlation.png` | Factor correlation heatmap |
-| `figures/hm_gamma_over_time.png` | HM risk premium and cumulative premium over time |
-| `figures/model_comparison.png` | Side-by-side model comparison (R², |alpha|, GRS) |
-
----
-
-## Repo Structure
-
-```
-factor-model/
-├── data_loader.py              # Data pipeline (FF5, prices, HM factor)
-├── factor_model.py             # Fama-MacBeth, GRS, model comparison
-├── visualize.py                # All figures
-├── run_factor_model.py         # Production entry point (CLI)
-├── factor_model_analysis.ipynb # Full analysis notebook
-├── results_fama_macbeth.csv    # Output table
-├── figures/                    # Saved plots
-└── cache/                      # Cached data (prices.parquet, ff5.zip)
-```
-
----
-
-## Usage
+## Run it
 
 ```bash
-# Full run (downloads data if not cached, ~3-4 min first run)
-python run_factor_model.py
-
-# Force re-download all data
-python run_factor_model.py --no-cache
-
-# Run without generating plots
-python run_factor_model.py --no-plots
-
-# Open notebook
-jupyter notebook factor_model_analysis.ipynb
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python -m real_research.analyze
 ```
 
-### Requirements
+Committed, normalized **real observations** allow an offline run after installing dependencies. To refresh the underlying public sources:
+
 ```bash
-pip install yfinance pandas numpy scipy statsmodels matplotlib seaborn nbformat pyarrow
+python -m real_research.download --refresh
+python -m real_research.analyze
 ```
 
----
+The downloader raises errors if a source fails. It never switches to generated data. Refreshing current-vintage sources may change results; the fixed August 2026 cutoff does not freeze provider revisions.
 
-## Extending the Model
+## Sources and audit
 
-To use live hiring momentum data (once Apify pipeline is running):
+- [Yahoo Finance](https://finance.yahoo.com/): adjusted monthly prices from the chart endpoint, starting January 2015 or IPO. Endpoints and original response hashes are in [manifest.json](data/real/manifest.json).
+- [SEC EDGAR Company Facts](https://www.sec.gov/search-filings/edgar-application-programming-interfaces): reported quarterly revenue and operating income. [Fundamental rows](data/real/fundamentals.csv) retain filing accessions, revenue tags and Q4 derivation flags.
+- [Indeed via FRED: IHLIDXUSTPSOFTDEVE](https://fred.stlouisfed.org/series/IHLIDXUSTPSOFTDEVE): software-development job postings. Attribution: Indeed, retrieved via FRED, Federal Reserve Bank of St. Louis. [Indeed methodology and CC BY 4.0 license](https://github.com/hiring-lab/job_postings_tracker).
 
-1. Export the hiring momentum z-scores from `jessieyang22/hiring-momentum` to CSV
-2. Pass the path to `load_hiring_momentum_factor(ff5.index, hiring_data_path="path/to/hm.csv")`
-3. The model will automatically use actual factor values instead of the synthetic proxy
+[Audit output](reports/audit.json) records input hashes, source retrieval timestamp, coverage and execution assumptions. No API keys are required. Full raw responses stay in the ignored `data/real/raw/` directory; normalized observations are committed for reproducibility.
 
-To expand the universe, modify the `UNIVERSE` list in `data_loader.py`.
+## Limits that change the interpretation
 
----
+1. This is a selected **surviving-company SaaS sample**, not historical S&P 500 membership. It excludes failed/acquired firms and has concentrated technology exposure.
+2. Indeed revises its historical series. A one-month feature lag does **not** reconstruct historical availability. Treat the hiring analysis as retrospective, not vintage-correct out-of-sample evidence.
+3. SEC quarters retain first reports. Q4 may be annual minus previously filed nine-month values, which can mix accounting vintages. Those derivations and accessions are visible for review.
+4. Yahoo's current adjusted prices approximate total returns; there is no complete delisting panel, corporate-action ledger, stock-loan inventory or volume-based market-impact model.
+5. Costs are 10 bps per dollar traded plus 100 bps annual short borrowing. Cash earns zero. Test splits are chronological but retrospectively chosen; no prospective alpha claim or multiple-testing-adjusted significance claim is made.
 
-## References
-- Fama, E.F. & French, K.R. (1993). Common risk factors in the returns on stocks and bonds. *Journal of Financial Economics*
-- Fama, E.F. & French, K.R. (2015). A five-factor asset pricing model. *Journal of Financial Economics*
-- Fama, E.F. & MacBeth, J.D. (1973). Risk, return, and equilibrium: Empirical tests. *Journal of Political Economy*
-- Gibbons, M.R., Ross, S.A. & Shanken, J. (1989). A test of the efficiency of a given portfolio. *Econometrica*
-- Newey, W.K. & West, K.D. (1987). A simple, positive semi-definite, heteroskedasticity and autocorrelation consistent covariance matrix. *Econometrica*
+See [methodology](docs/METHODOLOGY.md), [validation](docs/VALIDATION.md), and the reports before using the numbers in a pitch or resume. Built with AI assistance; the source and limitations are exposed for independent review.
